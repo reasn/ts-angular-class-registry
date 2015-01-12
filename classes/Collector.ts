@@ -1,35 +1,14 @@
 /// <reference path="./IController" />
 /// <reference path="./IDirective" />
+/// <reference path="./IServiceRegistration" />
+/// <reference path="./IDirectiveRegistration" />
+/// <reference path="./IControllerRegistration" />
 
 module ClassRegistry {
 
     interface IInjectableFunction {
         (...arguments: any[]): any;
         $inject?: string[];
-    }
-
-    interface IWrappableClass extends Function {
-        __registration: IRegistration;
-    }
-
-    interface IRegistration {
-        staticClass:  IWrappableClass;
-        namespace:    string;
-        dependencies: string[];
-
-    }
-
-    interface IServiceRegistration extends IRegistration {
-        name:         string;
-    }
-
-    interface IDirectiveRegistration extends IRegistration {
-        name:         string;
-        registration: any;
-    }
-
-    interface IControllerRegistration extends IRegistration {
-
     }
 
     export class Collector {

@@ -2,7 +2,7 @@
 
 module ClassRegistry {
 
-    interface IServiceRegistration extends IRegistration {
+    export interface IServiceRegistration extends IRegistration {
         name:         string;
     }
 

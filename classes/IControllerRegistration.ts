@@ -1,5 +1,4 @@
-/// <reference path="./IController" />
-/// <reference path="./IDirective" />
+/// <reference path="./IRegistration" />
 
 module ClassRegistry {
 
