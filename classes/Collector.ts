@@ -67,8 +67,11 @@ module ClassRegistry {
             if (!registration.staticClass) {
                 throw new Error('Tried to register ' + registration.namespace + ' with an undefined class');
             }
+        }
+
+        private checkRegistrationBeforeWrapping(registration: IRegistration) {
             if (!registration.staticClass.__registration) {
-                throw new Error(registration.namespace + ' has no assigned the classRegistry registration to its static property "__registration". That is necessary.');
+                throw new Error(registration.namespace + ' has not assigned the classRegistry registration result to its static property "__registration". That is necessary.');
             }
             if (registration.staticClass.__registration.staticClass !== registration.staticClass) {
                 throw new Error(registration.namespace + ' did not register itself via the ClassRegistry. Check for typos in registration!');
@@ -77,17 +80,20 @@ module ClassRegistry {
 
         wrapAndRegister(angularModule: ng.IModule) {
             this.serviceRegistrations.forEach((reg: IServiceRegistration)=> {
+                this.checkRegistrationBeforeWrapping(reg);
                 angularModule.service(reg.name,
                     this.wrapService(reg.staticClass, reg.dependencies)
                 );
             });
             this.directiveRegistrations.forEach((reg: IDirectiveRegistration)=> {
+                this.checkRegistrationBeforeWrapping(reg);
                 angularModule.directive(reg.name,
                     this.wrapDirective(reg.staticClass, reg.registration, reg.dependencies)
                 );
             });
 
             this.controllerRegistrations.forEach((reg: IControllerRegistration)=> {
+                this.checkRegistrationBeforeWrapping(reg);
                 angularModule.controller(reg.namespace,
                     this.wrapController(reg.staticClass, reg.dependencies)
                 );
