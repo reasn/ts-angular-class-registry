@@ -59,12 +59,12 @@ module ClassRegistry {
             return registration;
         }
 
-        static registerDirective(staticClass: Function, directiveName: string, namespace: string, registration: any, dependencies: string[]): IDirectiveRegistration {
+        static registerDirective(staticClass: Function, directiveName: string, namespace: string, directiveRegistrationData: any, dependencies: string[]): IDirectiveRegistration {
             var registration = {
                 staticClass:  <IWrappableClass>staticClass,
                 name:         directiveName,
                 namespace:    namespace,
-                registration: registration,
+                registration: directiveRegistrationData,
                 dependencies: dependencies
             };
             Collector.checkRegistration(registration);
