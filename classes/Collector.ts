@@ -67,6 +67,9 @@ module ClassRegistry {
             if (!registration.staticClass) {
                 throw new Error('Tried to register ' + registration.namespace + ' with an undefined class');
             }
+            if (!registration.staticClass.__registration) {
+                throw new Error(registration.namespace + ' has no assigned the classRegistry registration to its static property "__registration". That is necessary.');
+            }
             if (registration.staticClass.__registration.staticClass !== registration.staticClass) {
                 throw new Error(registration.namespace + ' did not register itself via the ClassRegistry. Check for typos in registration!');
             }
