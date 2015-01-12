@@ -143,7 +143,7 @@ module ClassRegistry {
 
             var directiveFactory: IInjectableFunction = function (): ng.IDirective {
                 var args = arguments,
-                    dependencies = [],
+                    dependencies: {[name:string]:any} = {},
                     angularDirective: any = registration;
 
                 dependencyNames.forEach(function (dependencyName: string, i: number) {
