@@ -1,4 +1,5 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="./IController" />
+/// <reference path="./IDirective" />
 
 module ClassRegistry {
 
