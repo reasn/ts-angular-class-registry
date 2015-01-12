@@ -8,34 +8,37 @@ module ClassRegistry {
         $inject?: string[];
     }
 
-    interface ServiceRegistration {
-        staticClass:  Function;
-        name:         string;
-        namespace:    string;
-        dependencies: string[];
+    interface IWrappableClass extends Function {
+        __registration: IRegistration;
     }
 
-    interface DirectiveRegistration {
-        staticClass:  Function;
-        name:         string;
+    interface IRegistration {
+        staticClass:  IWrappableClass;
         namespace:    string;
+        dependencies: string[];
+
+    }
+
+    interface IServiceRegistration extends IRegistration {
+        name:         string;
+    }
+
+    interface IDirectiveRegistration extends IRegistration {
+        name:         string;
         registration: any;
-        dependencies: string[];
     }
 
-    interface ControllerRegistration {
-        staticClass:  Function;
-        namespace:    string;
-        dependencies: string[];
+    interface IControllerRegistration extends IRegistration {
+
     }
 
     export class Collector {
 
         private static instance: Collector;
 
-        private serviceRegistrations: ServiceRegistration[] = [];
-        private directiveRegistrations: DirectiveRegistration[] = [];
-        private controllerRegistrations: ControllerRegistration[] = [];
+        private serviceRegistrations: IServiceRegistration[] = [];
+        private directiveRegistrations: IDirectiveRegistration[] = [];
+        private controllerRegistrations: IControllerRegistration[] = [];
 
         static getInstance(): Collector {
             if (!Collector.instance) {
@@ -44,49 +47,65 @@ module ClassRegistry {
             return Collector.instance;
         }
 
-        static registerService(staticClass: Function, serviceName: string, namespace: string, dependencies: string[]) {
-            this.getInstance().serviceRegistrations.push({
+        static registerService(staticClass: IWrappableClass, serviceName: string, namespace: string, dependencies: string[]): IServiceRegistration {
+            var registration = {
                 staticClass:  staticClass,
                 name:         serviceName,
                 namespace:    namespace,
                 dependencies: dependencies
-            });
+            };
+            Collector.checkRegistration(registration);
+            this.getInstance().serviceRegistrations.push(registration);
+            return registration;
         }
 
-        static registerDirective(staticClass: Function, directiveName: string, namespace: string, registration: any, dependencies: string[]) {
-            this.getInstance().directiveRegistrations.push({
+        static registerDirective(staticClass: IWrappableClass, directiveName: string, namespace: string, registration: any, dependencies: string[]): IDirectiveRegistration {
+            var registration = {
                 staticClass:  staticClass,
                 name:         directiveName,
                 namespace:    namespace,
                 registration: registration,
                 dependencies: dependencies
-            });
+            };
+            Collector.checkRegistration(registration);
+            this.getInstance().directiveRegistrations.push(registration);
+            return registration;
         }
 
-        static registerController(staticClass: Function, namespace: string, dependencies: string[]) {
-            if (!staticClass) {
-                throw new Error('Tried to register ' + namespace + ' with an undefined class');
-            }
-            this.getInstance().controllerRegistrations.push({
+        static registerController(staticClass: IWrappableClass, namespace: string, dependencies: string[]): IControllerRegistration {
+
+            var registration = {
                 staticClass:  staticClass,
                 namespace:    namespace,
                 dependencies: dependencies
-            });
+            };
+            Collector.checkRegistration(registration);
+            this.getInstance().controllerRegistrations.push(registration);
+            return registration;
+        }
+
+        private static checkRegistration(registration: IRegistration) {
+            if (registration.staticClass) {
+                throw new Error('Tried to register ' + registration.namespace + ' with an undefined class');
+            }
+            if (registration.staticClass.__registration.staticClass !== registration.staticClass) {
+                throw new Error(registration.namespace + ' did not register itself via the ClassRegistry. Check for typos in registration!');
+            }
         }
 
         wrapAndRegister(angularModule: ng.IModule) {
-            this.serviceRegistrations.forEach((reg: ServiceRegistration)=> {
+            this.serviceRegistrations.forEach((reg: IServiceRegistration)=> {
                 angularModule.service(reg.name,
                     this.wrapService(reg.staticClass, reg.dependencies)
                 );
             });
-            this.directiveRegistrations.forEach((reg: DirectiveRegistration)=> {
+            this.directiveRegistrations.forEach((reg: IDirectiveRegistration)=> {
                 angularModule.directive(reg.name,
                     this.wrapDirective(reg.staticClass, reg.registration, reg.dependencies)
                 );
             });
 
-            this.controllerRegistrations.forEach((reg: ControllerRegistration)=> {
+            this.controllerRegistrations.forEach((reg: IControllerRegistration)=> {
                 angularModule.controller(reg.namespace,
                     this.wrapController(reg.staticClass, reg.dependencies)
                 );
