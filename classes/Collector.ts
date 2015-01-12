@@ -64,7 +64,7 @@ module ClassRegistry {
         }
 
         private static checkRegistration(registration: IRegistration) {
-            if (registration.staticClass) {
+            if (!registration.staticClass) {
                 throw new Error('Tried to register ' + registration.namespace + ' with an undefined class');
             }
             if (registration.staticClass.__registration.staticClass !== registration.staticClass) {
