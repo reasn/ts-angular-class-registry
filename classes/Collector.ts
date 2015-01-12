@@ -47,9 +47,9 @@ module ClassRegistry {
             return Collector.instance;
         }
 
-        static registerService(staticClass: IWrappableClass, serviceName: string, namespace: string, dependencies: string[]): IServiceRegistration {
+        static registerService(staticClass: Function, serviceName: string, namespace: string, dependencies: string[]): IServiceRegistration {
             var registration = {
-                staticClass:  staticClass,
+                staticClass:  <IWrappableClass>staticClass,
                 name:         serviceName,
                 namespace:    namespace,
                 dependencies: dependencies
@@ -59,9 +59,9 @@ module ClassRegistry {
             return registration;
         }
 
-        static registerDirective(staticClass: IWrappableClass, directiveName: string, namespace: string, registration: any, dependencies: string[]): IDirectiveRegistration {
+        static registerDirective(staticClass: Function, directiveName: string, namespace: string, registration: any, dependencies: string[]): IDirectiveRegistration {
             var registration = {
-                staticClass:  staticClass,
+                staticClass:  <IWrappableClass>staticClass,
                 name:         directiveName,
                 namespace:    namespace,
                 registration: registration,
@@ -72,10 +72,10 @@ module ClassRegistry {
             return registration;
         }
 
-        static registerController(staticClass: IWrappableClass, namespace: string, dependencies: string[]): IControllerRegistration {
+        static registerController(staticClass: Function, namespace: string, dependencies: string[]): IControllerRegistration {
 
             var registration = {
-                staticClass:  staticClass,
+                staticClass:  <IWrappableClass>staticClass,
                 namespace:    namespace,
                 dependencies: dependencies
             };
