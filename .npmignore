@@ -1,5 +1,6 @@
-/.idea
-/classes
-/definitions
-Gruntfile.js
+.idea
+typings
 .gitignore
+.npmignore
+tsd.json
+*.tgz

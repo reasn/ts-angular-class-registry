@@ -1,37 +1,12 @@
 {
-  "name":            "mouflon",
-  "version":         "0.2.5",
-  "description":     "Capistrano-like deployments using pure javascript/yml syntax (with config upload, linked dirs, and past releases)",
-  "author":          "Alexander Thiel",
-  "license":         "proprietary",
-  "devDependencies": {
-    "grunt":               "0.4.x",
-    "grunt-contrib-watch": "0.6.x",
-    "grunt-typescript":    "0.4.x"
-  },
-  "main":            "./dist/classes/MouflonFactory",
-  "scripts":         {
-    "prepublish": "grunt"
-  },
-  "repository":      {
+  "name": "tsAngularClassRegistry",
+  "version": "0.0.1",
+  "description": "Small tool allowing registration of global namespaces JavaScript classes to be registered as directives, controllers and services with angularjs",
+  "author": "Alexander Thiel <me@alexthiel.de>",
+  "license": "MIT",
+  "main": "./classes/Collector.ts",
+  "repository": {
     "type": "git",
-    "url":  "git@github.com:reasn/mouflon.git"
-  },
-  "dependencies":    {
-    "async":           "0.9.x",
-    "bower":           "1.3.x",
-    "cli-color":       "0.3.x",
-    "dateformat":      "1.0.x",
-    "exec":            "0.1.x",
-    "git":             "0.1.x",
-    "js-yaml":         "3.2.x",
-    "merge-recursive": "0.0.x",
-    "minimist":        "1.1.x",
-    "node-sshclient":  "0.1.x",
-    "q":               "1.0.x",
-    "rimraf":          "2.2.x",
-    "shelljs":         "0.3.x",
-    "sprintf-js":      "1.0.x",
-    "minimist":        "1.1.x"
+    "url": "git@github.com:reasn/tsAngularClassRegistry.git"
   }
 }
