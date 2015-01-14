@@ -1,8 +1,8 @@
-/// <reference path="./IRegistration" />
+/// <reference path="./Annotation/IClassAnnotation" />
 
 module ClassRegistry {
 
     export interface IWrappableClass extends Function {
-        __registration: IRegistration;
+        __annotation: Annotation.IClassAnnotation;
     }
 }

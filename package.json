@@ -1,10 +1,10 @@
 {
   "name": "ts-angular-class-registry",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Small tool allowing registration of global namespaces JavaScript classes to be registered as directives, controllers and services with angularjs",
   "author": "Alexander Thiel <me@alexthiel.de>",
   "license": "MIT",
-  "main": "./classes/Collector.ts",
+  "main": "./classes/Annotator.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:reasn/ts-angular-class-registry.git"
