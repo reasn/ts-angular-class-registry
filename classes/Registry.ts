@@ -1,6 +1,7 @@
 /// <reference path="./ClassWrapper" />
 /// <reference path="./IWrappableClass" />
 /// <reference path="./Annotation/IClassAnnotation" />
+/// <reference path="./Annotation/IFilterAnnotation" />
 /// <reference path="./Annotation/IServiceAnnotation" />
 /// <reference path="./Annotation/IDirectiveRegistration" />
 /// <reference path="./Annotation/IControllerRegistration" />
@@ -21,12 +22,11 @@ module ClassRegistry {
                     switch (allClasses[i].__annotation.type) {
 
                         case ClassType.SERVICE:
-                            angularModule.service((<Annotation.IServiceAnnotation>annotation).serviceName,
-                                ClassWrapper.wrapService(
-                                    allClasses[i],
-                                    annotation.dependencies
-                                )
-                            );
+                            angularModule.service((<Annotation.IServiceAnnotation>annotation).serviceName, ClassWrapper.wrapService(
+                                allClasses[i],
+                                annotation.dependencies
+                            ));
+                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IServiceAnnotation>annotation).serviceName + ' as ' + annotation.namespace);
                             break;
 
                         case ClassType.CONTROLLER:
@@ -36,16 +36,24 @@ module ClassRegistry {
                                     annotation.dependencies
                                 )
                             );
+                            ToolBox.LogDecorator.debug('Registered ' + annotation.namespace);
                             break;
 
                         case ClassType.DIRECTIVE:
-                            angularModule.directive((<Annotation.IDirectiveAnnotation>annotation).directiveName,
-                                ClassWrapper.wrapDirective(
-                                    allClasses[i],
-                                    (<Annotation.IDirectiveAnnotation>annotation).directiveRegistration,
-                                    annotation.dependencies
-                                )
-                            );
+                            angularModule.directive((<Annotation.IDirectiveAnnotation>annotation).directiveName, ClassWrapper.wrapDirective(
+                                allClasses[i],
+                                (<Annotation.IDirectiveAnnotation>annotation).directiveRegistration,
+                                annotation.dependencies
+                            ));
+                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IDirectiveAnnotation>annotation).directiveName + ' as ' + annotation.namespace);
+                            break;
+
+                        case ClassType.FILTER:
+                            angularModule.filter((<Annotation.IFilterAnnotation>annotation).filterName, ClassWrapper.wrapFilter(
+                                allClasses[i],
+                                annotation.dependencies
+                            ));
+                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IFilterAnnotation>annotation).filterName + ' as ' + annotation.namespace);
                             break;
 
                         default:

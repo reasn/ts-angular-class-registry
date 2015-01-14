@@ -1,4 +1,7 @@
 /// <reference path="./IInjectableFunction" />
+/// <reference path="./IController" />
+/// <reference path="./IDirective" />
+/// <reference path="./IFilter" />
 
 module ClassRegistry {
 
@@ -23,9 +26,10 @@ module ClassRegistry {
         }
 
         /**
-         * Wraps a controller
+         * Wraps a controller.
+         *
          * When angular calls the wrapped function the render() method
-         * of the given controller class will be rendered.
+         * of the given controller class will be executed.
          */
         static wrapController(Class: any, dependencies: string[]): IInjectableFunction {
 
@@ -39,6 +43,31 @@ module ClassRegistry {
 
                 //It's a controller - invoke the render method
                 controller.render();
+            };
+            wrappingFunction.$inject = dependencies;
+            return wrappingFunction;
+        }
+
+        /**
+         * Wraps a filter.
+         *
+         * When angular calls the wrapped function the filter() method
+         * of the given filter class will be executed.
+         */
+        static wrapFilter(Class: any, dependencies: string[]): IInjectableFunction {
+
+            var wrappingFunction: IInjectableFunction = function (): (input: string) => string {
+                var args = arguments,
+                    filter: IFilter = new Class();
+
+                angular.forEach(dependencies, function (dependencyName: string, i: number) {
+                    filter[dependencyName] = args[i];
+                });
+
+                //It's a filter - invoke the filter method
+                return function (input: string) {
+                    return filter.filter(input);
+                };
             };
             wrappingFunction.$inject = dependencies;
             return wrappingFunction;

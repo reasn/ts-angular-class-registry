@@ -9,6 +9,7 @@ module ClassRegistry {
     export enum ClassType {
         SERVICE,
         CONTROLLER,
-        DIRECTIVE
+        DIRECTIVE,
+        FILTER
     }
 }
