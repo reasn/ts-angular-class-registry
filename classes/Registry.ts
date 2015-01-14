@@ -58,7 +58,7 @@ module ClassRegistry {
         private static findAnnotatedClasses(root: any): IWrappableClass[] {
             var foundElements: IWrappableClass[] = [];
             angular.forEach(root, function (child, key: string) {
-                if (!key.substr(0, 1).match(/[A-Z]{1}/)) {
+                if (typeof key === 'string' && !key.substr(0, 1).match(/[A-Z]{1}/)) {
                     return;
                 }
                 if (typeof child === 'object' || typeof child === 'function') {
