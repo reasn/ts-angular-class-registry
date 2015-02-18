@@ -12,7 +12,11 @@ module ClassRegistry.ToolBox {
          */
         static debug(line: string) {
             if (console) {
-                console.debug(LogDecorator.getTimeString() + line);
+                if (console.debug) {
+                    console.debug(LogDecorator.getTimeString() + line);
+                } else {
+                    console.log(LogDecorator.getTimeString() + line);
+                }
             }
         }
 
