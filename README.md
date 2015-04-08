@@ -14,6 +14,7 @@ A class registry system to allow namespaced typescript classes to annotated in o
  * 2015-01-23   v0.2.0    Directives are now accessible inside the scope via the their names using controllerAs
  * 2015-01-23   v0.2.1    Removed controllerAs functionality due to inconsistencies (e.g. directive methods being bound to window when used without parentheses)
  * 2015-02-18   v0.2.2    Fixed a bug in IE9
+ * 2015-04-08   v0.2.3    Fixed a data type bug in Filter Interface
 
 ---
 
