@@ -1,4 +1,4 @@
-# ts-angular-class-registry 0.2.2
+# ts-angular-class-registry 0.2.3
 
 A class registry system to allow namespaced typescript classes to annotated in order to be registered with angular modules
 
