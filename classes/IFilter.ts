@@ -1,6 +1,6 @@
 module ClassRegistry {
 
     export interface IFilter {
-        filter(input: string): string;
+        filter(input: any): any;
     }
 }
