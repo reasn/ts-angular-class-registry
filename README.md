@@ -1,4 +1,4 @@
-# ts-angular-class-registry 0.2.3
+# ts-angular-class-registry 0.3.0
 
 A class registry system to allow namespaced typescript classes to annotated in order to be registered with angular modules
 
@@ -15,6 +15,7 @@ A class registry system to allow namespaced typescript classes to annotated in o
  * 2015-01-23   v0.2.1    Removed controllerAs functionality due to inconsistencies (e.g. directive methods being bound to window when used without parentheses)
  * 2015-02-18   v0.2.2    Fixed a bug in IE9
  * 2015-04-08   v0.2.3    Fixed a data type bug in Filter Interface
+ * 2015-04-22   v0.3.0    Removed angular log decorator.
 
 ---
 

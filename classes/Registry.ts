@@ -26,7 +26,7 @@ module ClassRegistry {
                                 allClasses[i],
                                 annotation.dependencies
                             ));
-                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IServiceAnnotation>annotation).serviceName + ' as ' + annotation.namespace);
+                            //ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IServiceAnnotation>annotation).serviceName + ' as ' + annotation.namespace);
                             break;
 
                         case ClassType.CONTROLLER:
@@ -36,7 +36,7 @@ module ClassRegistry {
                                     annotation.dependencies
                                 )
                             );
-                            ToolBox.LogDecorator.debug('Registered ' + annotation.namespace);
+                            //ToolBox.LogDecorator.debug('Registered ' + annotation.namespace);
                             break;
 
                         case ClassType.DIRECTIVE:
@@ -45,7 +45,7 @@ module ClassRegistry {
                                 (<Annotation.IDirectiveAnnotation>annotation).directiveRegistration,
                                 annotation.dependencies
                             ));
-                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IDirectiveAnnotation>annotation).directiveName + ' as ' + annotation.namespace);
+                            //ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IDirectiveAnnotation>annotation).directiveName + ' as ' + annotation.namespace);
                             break;
 
                         case ClassType.FILTER:
@@ -53,7 +53,7 @@ module ClassRegistry {
                                 allClasses[i],
                                 annotation.dependencies
                             ));
-                            ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IFilterAnnotation>annotation).filterName + ' as ' + annotation.namespace);
+                            //ToolBox.LogDecorator.debug('Registered ' + (<Annotation.IFilterAnnotation>annotation).filterName + ' as ' + annotation.namespace);
                             break;
 
                         default:
